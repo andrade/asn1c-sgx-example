@@ -58,6 +58,7 @@ ber_fetch_tag(const void *ptr, size_t size, ber_tlv_tag_t *tag_r) {
 }
 
 
+#if !ENABLE_ENCLAVE_ASNONE_CODE
 ssize_t
 ber_tlv_tag_fwrite(ber_tlv_tag_t tag, FILE *f) {
 	char buf[sizeof("[APPLICATION ]") + 32];
@@ -71,6 +72,7 @@ ber_tlv_tag_fwrite(ber_tlv_tag_t tag, FILE *f) {
 
 	return fwrite(buf, 1, ret, f);
 }
+#endif
 
 ssize_t
 ber_tlv_tag_snprint(ber_tlv_tag_t tag, char *buf, size_t size) {
@@ -141,4 +143,3 @@ ber_tlv_tag_serialize(ber_tlv_tag_t tag, void *bufp, size_t size) {
 
 	return required_size + 1;
 }
-

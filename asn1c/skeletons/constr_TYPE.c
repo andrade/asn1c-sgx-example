@@ -29,6 +29,7 @@ asn_TYPE_outmost_tag(const asn_TYPE_descriptor_t *type_descriptor,
 	return type_descriptor->outmost_tag(type_descriptor, struct_ptr, 0, 0);
 }
 
+#if !ENABLE_ENCLAVE_ASNONE_CODE
 /*
  * Print the target language's structure in human readable form.
  */
@@ -50,7 +51,9 @@ asn_fprint(FILE *stream, asn_TYPE_descriptor_t *td, const void *struct_ptr) {
 
 	return fflush(stream);
 }
+#endif
 
+#if !ENABLE_ENCLAVE_ASNONE_CODE
 /* Dump the data into the specified stdio stream */
 static int
 _print2fp(const void *buffer, size_t size, void *app_key) {
@@ -61,6 +64,7 @@ _print2fp(const void *buffer, size_t size, void *app_key) {
 
 	return 0;
 }
+#endif
 
 
 /*
@@ -68,6 +72,10 @@ _print2fp(const void *buffer, size_t size, void *app_key) {
  * This function is a replacement of ASN_DEBUG() macro.
  */
 void ASN_DEBUG_f(const char *fmt, ...);
+#if ENABLE_ENCLAVE_ASNONE_CODE
+#define ASN_DEBUG_f do {} while (0)
+// desactivar debug (vfprintf indisponível)
+#else
 void ASN_DEBUG_f(const char *fmt, ...) {
 	va_list ap;
 	va_start(ap, fmt);
@@ -75,3 +83,4 @@ void ASN_DEBUG_f(const char *fmt, ...) {
 	fprintf(stderr, "\n");
 	va_end(ap);
 }
+#endif

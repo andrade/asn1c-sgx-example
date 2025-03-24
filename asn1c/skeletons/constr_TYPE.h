@@ -78,7 +78,6 @@ typedef ber_tlv_tag_t (asn_outmost_tag_f)(
 /* The instance of the above function type; used internally. */
 asn_outmost_tag_f asn_TYPE_outmost_tag;
 
-
 /*
  * The definitive description of the destination language's structure.
  */
@@ -160,6 +159,7 @@ typedef struct asn_TYPE_tag2member_s {
 	int toff_last;		/* Last occurence of the el_tag, relatvie */
 } asn_TYPE_tag2member_t;
 
+#if !ENABLE_ENCLAVE_ASNONE_CODE
 /*
  * This function is a wrapper around (td)->print_struct, which prints out
  * the contents of the target language's structure (struct_ptr) into the
@@ -169,9 +169,10 @@ typedef struct asn_TYPE_tag2member_s {
  * 	-1: Problem dumping the structure.
  * (See also xer_fprint() in xer_encoder.h)
  */
-int asn_fprint(FILE *stream,		/* Destination stream descriptor */
-	asn_TYPE_descriptor_t *td,	/* ASN.1 type descriptor */
-	const void *struct_ptr);	/* Structure to be printed */
+int asn_fprint(FILE *stream,    /* Destination stream descriptor */
+	asn_TYPE_descriptor_t *td,  /* ASN.1 type descriptor */
+	const void *struct_ptr);    /* Structure to be printed */
+#endif
 
 #ifdef __cplusplus
 }

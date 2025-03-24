@@ -25,6 +25,14 @@
 #include <stdarg.h>	/* For va_start */
 #include <stddef.h>	/* for offsetof and ptrdiff_t */
 
+#if ENABLE_ENCLAVE_ASNONE_CODE
+// avoid need for netinet/in.h inside the SGX enclave
+#define sys_ntohl(l) ((((l) << 24) & 0xff000000) \
+			| (((l) << 8) & 0xff0000)            \
+			| (((l) >> 8)  & 0xff00)             \
+			| ((l >> 24) & 0xff))
+#endif
+
 #ifdef	HAVE_ALLOCA_H
 #include <alloca.h>	/* For alloca(3) */
 #endif
@@ -35,11 +43,13 @@
 #define	 snprintf	_snprintf
 #define	 vsnprintf	_vsnprintf
 
+#if !ENABLE_ENCLAVE_ASNONE_CODE
 /* To avoid linking with ws2_32.lib, here's the definition of ntohl() */
 #define sys_ntohl(l)	((((l) << 24)  & 0xff000000)	\
 			| (((l) << 8) & 0xff0000)	\
 			| (((l) >> 8)  & 0xff00)	\
 			| ((l >> 24) & 0xff))
+#endif
 
 #ifdef _MSC_VER			/* MSVS.Net */
 #ifndef __cplusplus
@@ -93,8 +103,10 @@ typedef	unsigned int	uint32_t;
 #endif	/* defined(sun) */
 #endif
 
+#if !ENABLE_ENCLAVE_ASNONE_CODE
 #include <netinet/in.h> /* for ntohl() */
 #define	sys_ntohl(foo)	ntohl(foo)
+#endif
 
 #endif	/* defined(__vxworks) */
 

@@ -30,6 +30,7 @@ asn_enc_rval_t xer_encode(struct asn_TYPE_descriptor_s *type_descriptor,
 		void *app_key		/* Arbitrary callback argument */
 	);
 
+#if !ENABLE_ENCLAVE_ASNONE_CODE
 /*
  * The variant of the above function which dumps the BASIC-XER (XER_F_BASIC)
  * output into the chosen file pointer.
@@ -39,6 +40,7 @@ asn_enc_rval_t xer_encode(struct asn_TYPE_descriptor_s *type_descriptor,
  * WARNING: No sensible errno value is returned.
  */
 int xer_fprint(FILE *stream, struct asn_TYPE_descriptor_s *td, void *sptr);
+#endif
 
 /*
  * Type of the generic XER encoder.
