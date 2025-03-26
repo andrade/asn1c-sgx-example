@@ -1,4 +1,4 @@
-[This](https://github.com/andrade/asn1c-sgx-example) is an example on how to use the ASN.1 to C compiler located [here](https://github.com/vlm/asn1c) inside and outside an enclave. I based it on release v0.9.28.
+[This](https://github.com/andrade/asn1c-sgx-example) is an example on how to use ASN.1 inside and outside an enclave. The backend and tool is the ASN.1 to C compiler located [here](https://github.com/vlm/asn1c). I based this example on release v0.9.28.
 
 ### Guidelines
 
