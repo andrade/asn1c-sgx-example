@@ -1,0 +1,10 @@
+-- Quick start example from documentation
+
+RectangleModule DEFINITIONS ::= BEGIN
+
+	Rectangle ::= SEQUENCE {
+		height          INTEGER,
+		width           INTEGER
+	}
+
+END

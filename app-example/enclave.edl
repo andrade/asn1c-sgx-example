@@ -1,0 +1,13 @@
+enclave {
+	trusted {
+		public int make_ecall(
+				[in, size=1, count=ilen] const void *ibuf,
+				size_t ilen,
+				[out, size=1, count=ocap] void *obuf,
+				size_t ocap,
+				[out] size_t *olen);
+	};
+	untrusted {
+		void dump_str([in, string] const char *str);
+	};
+};

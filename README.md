@@ -1,3 +1,5 @@
+[This](https://github.com/andrade/asn1c-sgx-example) is an example on how to use the ASN.1 to C compiler located [here](https://github.com/vlm/asn1c) inside and outside an enclave. I based it on release v0.9.28.
+
 ### Guidelines
 
 #### Compiling
@@ -32,6 +34,10 @@ Assume the root of this library is at `$(ASN_SGX_HOME)`.
 
 4. Add `-D ENABLE_ENCLAVE_ASNONE_CODE=1` to the `CPPFLAGS`, otherwise compilation with fail complaining `netinet/in.h` does not exist.
 
+#### Running the example
+
+Directory `app-example` contains a concrete example with Intel SGX, go there and follow instructions. (If `$(ASN_SGX_HOME)` and `$(SGX_SDK)` are set it should be `$ make genkey`, `$ make`, and `$ ./app_ex`.)
+
 #### Notes
 
 - *Note #1:* Generate the files before calling make to create the static library. This step is not done automatically.
@@ -51,3 +57,7 @@ The compiler cannot handle large integers.
 If we specify `var INTEGER(0..MAX)` it compiles but then fails for the cases where the integer is too large.
 
 Explicitly specifying the max integer value, however, gives us an error directly from the compiler during validation. This is done with `var INTEGER(0..18446744073709551615)`, in this case to store a `uint64_t` which the compiler cannot handle. The error in this case would be `Value "18446744073709551615" at line 11 is too large for this compiler! Please contact the asn1c author.`.
+
+### Useful Links
+
+https://github.com/vlm/asn1c/blob/master/doc/asn1c-usage.pdf
